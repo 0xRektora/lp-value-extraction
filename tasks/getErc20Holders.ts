@@ -29,9 +29,11 @@ export const getErc20Holders = async (taskArgs: { address: string, name: string,
                     .formatUnits((await sendWeb3Req(async () => jar.balanceOf(user, { blockTag: block }))), "ether")
                 const lp = Number(jarRatio) * Number(shares)
 
-                balances[user] = {
-                    block,
-                    lp
+                if (lp !== 0) {
+                    balances[user] = {
+                        block,
+                        lp
+                    }
                 }
             }
         }
