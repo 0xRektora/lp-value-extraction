@@ -10,7 +10,7 @@ export const getErc20Holders = async (taskArgs: { address: string, name: string,
     const jar = await hre.ethers.getContractAt('IJar', taskArgs.address)
 
     const filter = jar.filters.Deposit()
-    const logs = await sendWeb3Req(async () => jar.queryFilter(filter, taskArgs.contractCreation, 'latest'))
+    const logs = await sendWeb3Req(async () => jar.queryFilter(filter, taskArgs.contractCreation, taskArgs.blockEnd))
 
     const users = logs.map(e => e.args._from)
 
