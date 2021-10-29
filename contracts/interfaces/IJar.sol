@@ -8,4 +8,6 @@ interface IJar is IERC20 {
     event Deposit(address indexed _from, uint256 _value);
 
     function getRatio() external view returns (uint256);
+
+    function token() external view returns (address);
 }

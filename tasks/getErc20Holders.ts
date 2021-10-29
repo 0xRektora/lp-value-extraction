@@ -2,6 +2,7 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 import sendWeb3Req from '../helpers/sendWeb3Req'
 import fs from "fs"
 
+
 /**
  * Get the # of LP in a jar vault by user
  */
@@ -47,7 +48,7 @@ export const getErc20Holders = async (taskArgs: { address: string, name: string,
         ...data,
         [taskArgs.name]: {
             "vaultAddress": taskArgs.address,
-            "vaultUsers": Object.keys(balances).map(e => ({ [e]: balances[e] }))
+            "vaultUsers": Object.keys(balances).map(user => ({ ...balances[user], user }))
         }
     }, null, 2))
 }
