@@ -36,7 +36,7 @@ async function main() {
     let data: {
         [lp: string]: {
             vaultAddress: string,
-            vaultUsers: { block: number, lp: number, user: string }[]
+            vaultUsers: { block: number, lp: number, user: string, lpValue?: number }[]
         }
     } = {}
     try {
@@ -62,7 +62,12 @@ async function main() {
             ...user,
             lpValue: user.lp * Number(lpPrice)
         }))
+
+        const lpValueSum = populatedPricesData[lpName].vaultUsers.reduce((p, c) => p + (c.lpValue ?? 0), 0)
+        console.log(`Sum of ${lpName} : ${lpValueSum}`);
+        console.log();
     }
+
 
     fs.writeFileSync("data.json", JSON.stringify(populatedPricesData, null, 2))
 
